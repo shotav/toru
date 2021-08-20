@@ -2,10 +2,10 @@ use clap::{Arg, App, AppSettings};
 use std::process::Command;
 
 fn main() {
-    let matches = App::new("toru")
-        .version("0.1.2")
-        .author("PryosCode")
-        .about("Pacman wrapper with AUR support.")
+    let matches = App::new(env!("CARGO_PKG_NAME"))
+        .version(env!("CARGO_PKG_VERSION"))
+        .author(env!("CARGO_PKG_AUTHORS"))
+        .about(env!("CARGO_PKG_DESCRIPTION"))
         .setting(AppSettings::SubcommandRequiredElseHelp)
         .setting(AppSettings::DisableHelpSubcommand)
         .subcommand(App::new("clean")

@@ -22,10 +22,13 @@ jobs:
         with:
           toolchain: stable
 
-      - name: Cargo Build
+      - name: Test
+        run: cargo test
+
+      - name: Get Version
         run: |
-          cargo build --release
-          echo VERSION=$(./target/release/toru -V | cut -d ' ' -f 2) >> $GITHUB_ENV
+          echo VERSION=$(cat Cargo.toml | grep version | cut -d ' ' -f 3 | sed 's/"//g') >> $GITHUB_ENV
+          sed -i 's/VERSION/${{ env.VERSION }}/' PKGBUILD
 
       - name: Publish AUR
         uses: KSXGitHub/github-actions-deploy-aur@v2.2.5

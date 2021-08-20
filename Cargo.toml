@@ -1,0 +1,17 @@
+[package]
+name = "toru"
+version = "0.1.0"
+authors = [ "pryoscode" ]
+edition = "2018"
+description = "Pacman wrapper with AUR support."
+readme = "README.md"
+repository = "https://github.com/PryosCode/toru"
+license = "Apache-2.0"
+publish = false
+
+[dependencies]
+clap = "3.0.0-beta.4"
+dialoguer = "0.8.0"
+dirs = "3.0.2"
+serde = "1.0.125"
+reqwest = "0.11.4"

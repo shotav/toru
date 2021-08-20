@@ -4,7 +4,7 @@
     <a href="https://github.com/PryosCode/toru/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/PryosCode/toru?label=License"></a>
 </p>
 
-# <a href="https://github.com/PryosCode/toru/blob/master/img/pacman.png"><img src="https://github.com/PryosCode/toru/raw/master/img/pacman.png" alt="Pacman" width="30" height="auto"></a> Henji
+# <a href="https://github.com/PryosCode/toru/blob/master/img/pacman.png"><img src="https://github.com/PryosCode/toru/raw/master/img/pacman.png" alt="Pacman" width="30" height="auto"></a> toru
 
 Pacman wrapper with AUR support.
 

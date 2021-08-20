@@ -27,6 +27,17 @@ jobs:
           cargo build --release
           echo VERSION=$(./target/release/toru -V | cut -d ' ' -f 2) >> $GITHUB_ENV
 
+      - name: AUR Publish
+        uses: KSXGitHub/github-actions-deploy-aur@v2.2.5
+        with:
+          pkgname: toru
+          pkgbuild: PKGBUILD
+          commit_username: pryoscode
+          commit_email: info@pryoscode.net
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          commit_message: Update AUR package
+          ssh_keyscan_types: rsa,dsa,ecdsa,ed25519
+
       - name: Release GitHub
         uses: softprops/action-gh-release@v1
         with:

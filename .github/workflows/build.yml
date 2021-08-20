@@ -35,7 +35,7 @@ jobs:
           commit_username: pryoscode
           commit_email: info@pryoscode.net
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
-          commit_message: Update AUR package
+          commit_message: v${{ env.VERSION }}
           ssh_keyscan_types: rsa,dsa,ecdsa,ed25519
 
       - name: Release GitHub

@@ -1,5 +1,4 @@
 use clap::{Arg, App, AppSettings};
-use nix::unistd::Uid;
 use std::process::Command;
 
 fn main() {
@@ -41,11 +40,6 @@ fn main() {
         .subcommand(App::new("clean")
             .about("Clean cache."))
         .get_matches();
-
-    if Uid::effective().is_root() {
-        println!("Please avoid running toru with root.");
-        return;
-    }
 
     match matches.subcommand() {
         Some(("install", _)) => {

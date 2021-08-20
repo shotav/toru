@@ -27,8 +27,8 @@ jobs:
 
       - name: Get Version
         run: |
-          echo VERSION=$(cat Cargo.toml | grep version | cut -d ' ' -f 3 | sed 's/"//g') >> $GITHUB_ENV
-          echo $VERSION
+          export VERSION=$(cat Cargo.toml | grep version | cut -d ' ' -f 3 | sed 's/"//g')
+          echo VERSION=$VERSION >> $GITHUB_ENV
           sed -i "s/VERSION/$VERSION/" PKGBUILD
 
       - name: Publish AUR

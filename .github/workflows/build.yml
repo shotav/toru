@@ -28,7 +28,8 @@ jobs:
       - name: Get Version
         run: |
           echo VERSION=$(cat Cargo.toml | grep version | cut -d ' ' -f 3 | sed 's/"//g') >> $GITHUB_ENV
-          sed -i "s/VERSION/$${{ env.VERSION }}/" PKGBUILD
+          echo $VERSION
+          sed -i "s/VERSION/$VERSION/" PKGBUILD
 
       - name: Publish AUR
         uses: KSXGitHub/github-actions-deploy-aur@v2.2.5

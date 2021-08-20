@@ -53,6 +53,8 @@ fn main() {
         Some(("update", _)) => {
             Command::new("sh").arg("-c").arg("sudo pacman -Syu --noconfirm").status().expect("");
         },
+        Some(("clean", _)) => {
+        },
         _ => {}
     }
 }

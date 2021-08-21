@@ -31,7 +31,6 @@ SUBCOMMANDS:
     clean      Clean cache.
     install    Install the specified packages.
     remove     Remove the specified packages.
-    search     Search and install a package.
     update     Update all packages.
 ```
 

@@ -17,25 +17,25 @@ fn main() {
             .about("Clean cache."))
         .subcommand(App::new("install")
             .about("Install the specified packages.")
-            .arg(Arg::new("PACKAGES")
-                .about("Packages to install.")
-                .multiple_values(true)
+            .arg(Arg::with_name("PACKAGES")
+                .help("Packages to install.")
+                .multiple(true)
                 .required(true)))
         .subcommand(App::new("remove")
             .about("Remove the specified packages.")
-            .arg(Arg::new("PACKAGES")
-                .about("Packages to remove.")
-                .multiple_values(true)
+            .arg(Arg::with_name("PACKAGES")
+                .help("Packages to remove.")
+                .multiple(true)
                 .required(true)))
         .subcommand(App::new("update")
             .about("Update all packages."))
         .get_matches();
 
-    match matches.subcommand() {
-        Some(("clean", _)) => clean::init(),
-        Some(("install", _)) => install::init(matches),
-        Some(("remove", _)) => remove::init(matches),
-        Some(("update", _)) => update::init(),
+    match matches.subcommand_name() {
+        Some("clean") => clean::init(),
+        Some("install") => install::init(matches),
+        Some("remove") => remove::init(matches),
+        Some("update") => update::init(),
         _ => {}
     }
 }

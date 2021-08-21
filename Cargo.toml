@@ -1,6 +1,6 @@
 [package]
 name = "toru"
-version = "0.4.1"
+version = "0.4.2"
 authors = [ "PryosCode <info@pryoscode.net>" ]
 edition = "2018"
 description = "Pacman wrapper with AUR support."
@@ -8,14 +8,13 @@ readme = "README.md"
 homepage = "https://aur.archlinux.org/packages/toru/"
 repository = "https://github.com/PryosCode/toru"
 license = "Apache-2.0"
-keywords = [ "archlinux", "pacman", "aur-helper" ]
+keywords = ["archlinux", "pacman", "aur-helper"]
 publish = false
 
 [dependencies]
 clap = "2.33.3"
-reqwest = { version = "0.11.4", features = [ "blocking" ] }
-serde = "1.0.127"
+reqwest = { version = "0.11.4", features = ["blocking"] }
+serde = { version = "1.0.127", features = ["derive"] }
 serde_json = "1.0.66"
-serde_derive = "1.0.127"
 dialoguer = "0.8.0"
 dirs = "3.0.2"

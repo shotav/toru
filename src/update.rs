@@ -1,6 +1,6 @@
 use std::process::Command;
 use std::collections::HashMap;
-use serde_derive::{Serialize, Deserialize};
+use serde::{Deserialize};
 
 pub fn init() {
     Command::new("sudo").arg("pacman").args(["-Syu", "--noconfirm"]).status().unwrap();
@@ -24,15 +24,14 @@ pub fn init() {
     }
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Deserialize)]
 struct Response {
     results: Vec<Package>
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Deserialize)]
+#[serde(rename_all = "PascalCase")]
 struct Package {
-    #[serde(rename = "Name")]
     name: String,
-    #[serde(rename = "Version")]
     version: String
 }

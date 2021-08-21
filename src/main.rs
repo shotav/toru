@@ -4,7 +4,7 @@ mod install;
 mod remove;
 mod update;
 
-use clap::{Arg, App, AppSettings};
+use clap::{Arg, App, SubCommand, AppSettings};
 
 fn main() {
     let matches = App::new(env!("CARGO_PKG_NAME"))
@@ -13,21 +13,21 @@ fn main() {
         .about(env!("CARGO_PKG_DESCRIPTION"))
         .setting(AppSettings::SubcommandRequiredElseHelp)
         .setting(AppSettings::DisableHelpSubcommand)
-        .subcommand(App::new("clean")
+        .subcommand(SubCommand::with_name("clean")
             .about("Clean cache."))
-        .subcommand(App::new("install")
+        .subcommand(SubCommand::with_name("install")
             .about("Install the specified packages.")
             .arg(Arg::with_name("PACKAGES")
                 .help("Packages to install.")
                 .multiple(true)
                 .required(true)))
-        .subcommand(App::new("remove")
+        .subcommand(SubCommand::with_name("remove")
             .about("Remove the specified packages.")
             .arg(Arg::with_name("PACKAGES")
                 .help("Packages to remove.")
                 .multiple(true)
                 .required(true)))
-        .subcommand(App::new("update")
+        .subcommand(SubCommand::with_name("update")
             .about("Update all packages."))
         .get_matches();
 

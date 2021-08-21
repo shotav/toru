@@ -1,6 +1,6 @@
 use std::process::Command;
 use clap::{ArgMatches};
-use serde_derive::{Serialize, Deserialize};
+use serde::{Deserialize};
 use dialoguer::Confirm;
 
 pub fn init(matches: ArgMatches) {
@@ -59,27 +59,26 @@ pub fn init(matches: ArgMatches) {
     }
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Deserialize)]
 struct PacmanResponse {
     results: Vec<PacmanPackage>
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Deserialize)]
 struct PacmanPackage {
     pkgname: String,
     pkgver: String,
     pkgrel: String
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Deserialize)]
 struct AurResponse {
     results: Vec<AurPackage>
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Deserialize)]
+#[serde(rename_all = "PascalCase")]
 struct AurPackage {
-    #[serde(rename = "Name")]
     name: String,
-    #[serde(rename = "Version")]
     version: String
 }

@@ -1,3 +1,4 @@
+use std::process::Command;
 use clap::{ArgMatches};
 use serde_derive::{Serialize, Deserialize};
 use dialoguer::Confirm;
@@ -50,29 +51,13 @@ pub fn init(matches: ArgMatches) {
             for package in &pacman {
                 pkgs.push(package.pkgname.to_owned());
             }
-            crate::lib::execute("sudo pacman -S --noconfirm ".to_owned() + pkgs.join(" ").as_str()).code().unwrap();
+            Command::new("sudo").arg("pacman").args(["-S", "--noconfirm"]).args(pkgs).status().unwrap();
         }
         for package in aur {
-            let folder = dirs::cache_dir().unwrap().join("toru").join(&package.name);
-            std::fs::create_dir_all(&folder).unwrap();
-            let path = folder.as_path().to_str().unwrap();
-            if folder.read_dir().unwrap().next().is_none() {
-                crate::lib::execute("git clone https://aur.archlinux.org/".to_owned() + package.name.as_str() + ".git " + path);
-            } else {
-                crate::lib::execute(
-                    "cd ".to_owned() + path + " && " +
-                    "git pull"
-                );
-            }
-            crate::lib::execute(
-                "cd ".to_owned() + path + " && " +
-                "makepkg -si --noconfirm"
-            );
+            crate::aur::install(package.name);
         }
     }
 }
-
-
 
 #[derive(Serialize, Deserialize)]
 struct PacmanResponse {

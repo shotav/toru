@@ -1,4 +1,4 @@
-mod lib;
+mod aur;
 mod clean;
 mod install;
 mod remove;

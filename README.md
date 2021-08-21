@@ -24,8 +24,8 @@ USAGE:
     toru <SUBCOMMAND>
 
 FLAGS:
-    -h, --help       Print help information
-    -V, --version    Print version information
+    -h, --help       Prints help information
+    -V, --version    Prints version information
 
 SUBCOMMANDS:
     clean      Clean cache.

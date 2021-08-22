@@ -4,12 +4,13 @@ use serde::{Deserialize};
 use dialoguer::Confirm;
 
 pub fn init(matches: ArgMatches) {
+    let args: Vec<&str> = matches.subcommand_matches("install").unwrap().values_of("PACKAGES").unwrap().collect();
+
     let mut pacman: Vec<PacmanPackage> = vec![];
     let mut aur: Vec<AurPackage> = vec![];
     let mut not_found: Vec<String> = vec![];
 
-    let packages: Vec<&str> = matches.subcommand_matches("install").unwrap().values_of("PACKAGES").unwrap().collect();
-    for package in &packages {
+    for package in args {
         let pacman_json = reqwest::blocking::get(format!("https://archlinux.org/packages/search/json/?name={}", package.to_lowercase())).unwrap().text().unwrap();
         let pacman_response: PacmanResponse = serde_json::from_str(&pacman_json).unwrap();
         if pacman_response.results.is_empty() {
@@ -32,25 +33,17 @@ pub fn init(matches: ArgMatches) {
         return;
     }
 
-    let mut all: Vec<String> = vec![];
-    for package in &pacman {
-        all.push(format!("{}-{}-{}", package.pkgname, package.pkgver, package.pkgrel));
-    }
-    for package in &aur {
-        all.push(format!("{}-{}", package.name, package.version));
-    }
+    let mut all: Vec<String> = pacman.iter().map(|p| format!("{}-{}-{}", p.pkgname, p.pkgver, p.pkgrel)).collect();
+    all.append(&mut aur.iter().map(|p| format!("{}-{}", p.name, p.version)).collect());
 
-    println!("Packages: {}", packages.len());
+    println!("Packages: {}", pacman.len() + aur.len());
     println!();
     println!("{}" , all.join(" "));
     println!();
 
     if Confirm::new().with_prompt("Do you want to proceed?").interact().unwrap() {
         if !pacman.is_empty() {
-            let mut pkgs: Vec<String> = vec![];
-            for package in &pacman {
-                pkgs.push(package.pkgname.to_owned());
-            }
+            let pkgs: Vec<String> = pacman.iter().map(|p| p.pkgname.to_owned()).collect();
             Command::new("sudo").arg("pacman").args(["-S", "--noconfirm"]).args(pkgs).status().unwrap();
         }
         for package in aur {

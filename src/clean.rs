@@ -1,3 +1,6 @@
 pub fn init() {
-    std::fs::remove_dir_all(dirs::cache_dir().unwrap().join("toru")).unwrap();
+    let folder = dirs::cache_dir().unwrap().join("toru");
+    if folder.exists() {
+        std::fs::remove_dir_all(folder).unwrap();
+    }
 }

@@ -10,10 +10,10 @@ pub fn init(matches: ArgMatches) {
 
     let packages: Vec<&str> = matches.subcommand_matches("install").unwrap().values_of("PACKAGES").unwrap().collect();
     for package in &packages {
-        let pacman_json = reqwest::blocking::get("https://archlinux.org/packages/search/json/?name=".to_owned() + package.to_lowercase().as_str()).unwrap().text().unwrap();
+        let pacman_json = reqwest::blocking::get(format!("https://archlinux.org/packages/search/json/?name={}", package.to_lowercase())).unwrap().text().unwrap();
         let pacman_response: PacmanResponse = serde_json::from_str(&pacman_json).unwrap();
         if pacman_response.results.is_empty() {
-            let aur_json = reqwest::blocking::get("https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=".to_owned() + package.to_lowercase().as_str()).unwrap().text().unwrap();
+            let aur_json = reqwest::blocking::get(format!("https://aur.archlinux.org/rpc/?v=5&type=info&arg[]={}", package.to_lowercase())).unwrap().text().unwrap();
             let aur_response: AurResponse = serde_json::from_str(&aur_json).unwrap();
             if aur_response.results.is_empty() {
                 not_found.push(package.to_lowercase());
@@ -34,10 +34,10 @@ pub fn init(matches: ArgMatches) {
 
     let mut all: Vec<String> = vec![];
     for package in &pacman {
-        all.push(package.pkgname.to_owned() + "-" + package.pkgver.as_str() + "-" + package.pkgrel.as_str());
+        all.push(format!("{}-{}-{}", package.pkgname, package.pkgver, package.pkgrel));
     }
     for package in &aur {
-        all.push(package.name.to_owned() + "-" + package.version.as_str());
+        all.push(format!("{}-{}", package.name, package.version));
     }
 
     println!("Packages: {}", packages.len());

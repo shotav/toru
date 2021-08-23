@@ -9,7 +9,10 @@ pub fn init(matches: ArgMatches) {
         let json = ureq::get(format!("https://aur.archlinux.org/rpc/?v=5&type=info&arg[]={}", package).as_str()).call().unwrap().into_string().unwrap();
         let response: Response = miniserde::json::from_str(&json).unwrap();
         if response.results.is_empty() {
-            Command::new("sudo").arg("pacman").args(["-S", "--noconfirm"]).arg(package).status().unwrap();
+            let status = Command::new("sudo").arg("pacman").args(["-S", "--noconfirm"]).arg(package).status().unwrap();
+            if !status.success() {
+                return;
+            }
         } else {
             crate::aur::install(package);
         }

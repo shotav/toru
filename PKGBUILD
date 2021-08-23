@@ -7,10 +7,6 @@ arch=("x86_64")
 url="https://github.com/PryosCode/toru"
 license=("Apache-2.0")
 depends=(
-    "sudo"
-    "pacman"
-    "git"
-
     "autoconf"
     "automake"
     "binutils"
@@ -28,9 +24,11 @@ depends=(
     "libtool"
     "m4"
     "make"
+    "pacman"
     "patch"
     "pkgconfig"
     "sed"
+    "sudo"
     "texinfo"
     "which"
 )

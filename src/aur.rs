@@ -1,12 +1,15 @@
 use std::process::Command;
+use nix::unistd::Uid;
+use git2::Repository;
 
 pub fn install(package: String) {
-    let folder = dirs::cache_dir().unwrap().join("toru").join(&package);
-    std::fs::create_dir_all(&folder).unwrap();
-    if folder.read_dir().unwrap().next().is_none() {
-        Command::new("git").arg("clone").arg(format!("https://aur.archlinux.org/{}.git", package)).arg(".").current_dir(&folder).status().unwrap();
-    } else {
-        Command::new("git").arg("pull").current_dir(&folder).status().unwrap();
+    if !Uid::effective().is_root() {
+        let folder = dirs::cache_dir().unwrap().join("toru").join(&package);
+        if folder.exists() {
+            rm_rf::remove(&folder).unwrap();
+        }
+        std::fs::create_dir_all(&folder).unwrap();
+        Repository::clone(format!("https://aur.archlinux.org/{}.git", package).as_str(), &folder).unwrap();
+        Command::new("makepkg").arg("-si").arg("--noconfirm").current_dir(folder).status().unwrap();
     }
-    Command::new("makepkg").arg("-si").arg("--noconfirm").current_dir(folder).status().unwrap();
 }

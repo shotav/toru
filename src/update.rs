@@ -1,6 +1,6 @@
 use std::process::Command;
 use std::collections::HashMap;
-use serde::{Deserialize};
+use miniserde::{Deserialize};
 
 pub fn init() {
     Command::new("sudo").arg("pacman").args(["-Syu", "--noconfirm"]).status().unwrap();
@@ -15,8 +15,8 @@ pub fn init() {
         url.push_str(name);
         packages.insert(name.to_string(), version.to_string());
     }
-    let json = reqwest::blocking::get(url).unwrap().text().unwrap();
-    let response: Response = serde_json::from_str(&json).unwrap();
+    let json = ureq::get(url.as_str()).call().unwrap().into_string().unwrap();
+    let response: Response = miniserde::json::from_str(&json).unwrap();
     for package in response.results {
         if package.version != packages.get(package.name.as_str()).unwrap().to_string() {
             crate::aur::install(package.name);
@@ -30,8 +30,9 @@ struct Response {
 }
 
 #[derive(Deserialize)]
-#[serde(rename_all = "PascalCase")]
 struct Package {
+    #[serde(rename = "Name")]
     name: String,
+    #[serde(rename = "Version")]
     version: String
 }

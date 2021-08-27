@@ -436,6 +436,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6e63cff320ae2c57904679ba7cb63280a3dc4613885beafb148ee7bf9aa9042d"
 
 [[package]]
+name = "srcinfo"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a69c538e89460803500fca8d5f54a82f5ae1b3b2fc0661462ee41d8641a3571a"
+
+[[package]]
 name = "stacker"
 version = "0.1.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -491,7 +497,7 @@ checksum = "cda74da7e1a664f795bb1f8a87ec406fb89a02522cf6e50620d016add6dbbf5c"
 
 [[package]]
 name = "toru"
-version = "0.5.2"
+version = "0.6.0"
 dependencies = [
  "clap",
  "dirs",
@@ -499,6 +505,7 @@ dependencies = [
  "miniserde",
  "nix",
  "rm_rf",
+ "srcinfo",
  "ureq",
 ]
 

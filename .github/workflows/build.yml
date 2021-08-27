@@ -27,7 +27,7 @@ jobs:
 
       - name: Get Version
         run: |
-          export VERSION=$(cat Cargo.toml | grep -m 1 version | cut -d ' ' -f 3 | sed 's/"//g')
+          export VERSION=$(cat Cargo.toml | grep version | cut -d ' ' -f 3 | sed 's/"//g')
           echo VERSION=$VERSION >> $GITHUB_ENV
           sed -i "s/VERSION/$VERSION/" PKGBUILD
 

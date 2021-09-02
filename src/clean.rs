@@ -1,6 +1,11 @@
 use std::process::Command;
 
 pub fn init() {
+    let status = Command::new("sudo").arg("pacman").args(["-Scc", "--noconfirm"]).status().unwrap();
+    if !status.success() {
+        return;
+    }
+
     let output = Command::new("pacman").arg("-Qtdq").output().unwrap();
     let lines = String::from_utf8(output.stdout).unwrap();
     let packages: Vec<&str> = lines.lines().collect();

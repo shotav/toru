@@ -1,18 +1,17 @@
 use std::process::Command;
 use miniserde::{Deserialize};
 use nix::unistd::Uid;
-use git2::Repository;
 use srcinfo::Srcinfo;
 
 pub fn install(package: String) {
     if !Uid::effective().is_root() {
         let folder = dirs::cache_dir().unwrap().join("toru").join(&package);
         if folder.exists() {
-            rm_rf::remove(&folder).unwrap();
+            Command::new("git").arg("pull").current_dir(&folder).status().unwrap();
+        } else {
+            std::fs::create_dir_all(&folder).unwrap();
+            Command::new("git").arg("clone").arg(format!("https://aur.archlinux.org/{}.git", package)).arg(".").current_dir(&folder).status().unwrap();
         }
-        std::fs::create_dir_all(&folder).unwrap();
-        Repository::clone(format!("https://aur.archlinux.org/{}.git", package).as_str(), &folder).unwrap();
-
         let srcinfo = Srcinfo::parse_file(folder.join(".SRCINFO")).unwrap();
         let mut packages: Vec<String> = vec![];
         if !srcinfo.pkg.depends.is_empty() { packages.append(&mut srcinfo.pkg.depends.first().unwrap().vec.iter().map(|p| p.to_owned()).collect()); }

@@ -7,6 +7,7 @@ arch=("x86_64")
 url="https://github.com/PryosCode/toru"
 license=("Apache-2.0")
 depends=(
+    "git"
     "autoconf"
     "automake"
     "binutils"

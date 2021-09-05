@@ -1,6 +1,6 @@
 [package]
 name = "toru"
-version = "0.6.2"
+version = "0.7.0"
 authors = ["PryosCode <info@pryoscode.net>"]
 edition = "2018"
 description = "Pacman wrapper with AUR support."
@@ -18,5 +18,4 @@ miniserde = "0.1.15"
 nix = "0.22.1"
 dirs = "3.0.2"
 rm_rf = "0.6.1"
-git2 = "0.13.21"
 srcinfo = "1.0.0"

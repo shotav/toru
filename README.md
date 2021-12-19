@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://github.com/PryosCode/toru/tags"><img alt="Version" src="https://img.shields.io/github/v/release/PryosCode/toru?label=Version"></a>
-    <a href="https://github.com/PryosCode/toru/actions"><img alt="Build" src="https://github.com/PryosCode/toru/actions/workflows/build.yml/badge.svg"></a>
+    <a href="https://github.com/PryosCode/toru/actions/workflows/build.yml"><img alt="Build" src="https://github.com/PryosCode/toru/actions/workflows/build.yml/badge.svg"></a>
     <a href="https://github.com/PryosCode/toru/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/PryosCode/toru?label=License"></a>
 </p>
 

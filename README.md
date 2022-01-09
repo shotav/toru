@@ -11,10 +11,10 @@ Pacman wrapper with AUR support.
 ## Installation
 
 ```bash
-sudo pacman -S git base-devel
-git clone https://aur.archlinux.org/toru.git
-cd toru
-makepkg -si
+$ sudo pacman -S git base-devel
+$ git clone https://aur.archlinux.org/toru.git
+$ cd toru
+$ makepkg -si
 ```
 
 ## Usage

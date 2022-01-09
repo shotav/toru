@@ -11,7 +11,7 @@ Pacman wrapper with AUR support.
 ## Installation
 
 ```bash
-pacman -S git base-devel
+sudo pacman -S git base-devel
 git clone https://aur.archlinux.org/toru.git
 cd toru
 makepkg -si
